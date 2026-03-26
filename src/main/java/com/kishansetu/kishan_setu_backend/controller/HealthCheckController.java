@@ -1,4 +1,4 @@
-package com.kishansetu.kishan_setu_backend;
+package com.kishansetu.kishan_setu_backend.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
