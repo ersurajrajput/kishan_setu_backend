@@ -10,6 +10,7 @@ public class CloudinaryConfig {
 
     @Value("${cloudinary.cloud_name}")
     private String cloudName;
+    //test
 
     @Value("${cloudinary.api_key}")
     private String apiKey;
