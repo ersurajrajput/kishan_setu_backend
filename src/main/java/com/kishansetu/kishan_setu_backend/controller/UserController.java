@@ -25,7 +25,7 @@ public class UserController {
     }
 
     ///  method for login
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserModel userModel){
         return userService.loginUser(userModel);
     }

@@ -132,18 +132,18 @@ public class UserService {
 
     }
 
-    public ResponseEntity<?> loginUser(UserModel userModel){
-        if ( userModel.getPassword()==null || userModel.getEmail() == null || userModel.getPassword().isBlank() || userModel.getEmail().isBlank() ){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("EMAIL AND PASSWORD REQUIRED");
-        }
-        Optional<UserModel> savedUser;
-        savedUser = userRepo.findByEmail(userModel.getEmail());
-        if (savedUser.isPresent()){
-            if (savedUser.get().getEmail().equals(userModel.getEmail()) && savedUser.get().getPassword().equals(userModel.getPassword())){
-                savedUser.get().setPassword("null");
-                return ResponseEntity.status(HttpStatus.OK).body(savedUser.get());
+        public ResponseEntity<?> loginUser(UserModel userModel){
+            if ( userModel.getPassword()==null || userModel.getEmail() == null || userModel.getPassword().isBlank() || userModel.getEmail().isBlank() ){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("EMAIL AND PASSWORD REQUIRED");
             }
+            Optional<UserModel> savedUser;
+            savedUser = userRepo.findByEmail(userModel.getEmail());
+            if (savedUser.isPresent()){
+                if (savedUser.get().getEmail().equals(userModel.getEmail()) && savedUser.get().getPassword().equals(userModel.getPassword())){
+                    savedUser.get().setPassword("null");
+                    return ResponseEntity.status(HttpStatus.OK).body(savedUser.get());
+                }
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("WRONG CREDENTIALS");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("WRONG CREDENTIALS");
-    }
 }
