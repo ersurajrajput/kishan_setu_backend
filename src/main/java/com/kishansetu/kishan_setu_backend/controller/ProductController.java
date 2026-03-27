@@ -37,6 +37,7 @@ public class ProductController {
                                          @RequestParam(required = false) String price,
                                          @RequestParam(required = false) String location,
                                          @RequestParam(required = false) String sellerId,
+                                         @RequestParam(required = false) String sellerName,
                                          @RequestParam(required = false) String type,
                                          @RequestParam(required = false) MultipartFile image){
         ProductModel productModel = new ProductModel();
@@ -48,6 +49,7 @@ public class ProductController {
         productModel.setLocation(location);
         productModel.setSellerId(sellerId);
         productModel.setType(type);
+        productModel.setSellerName(sellerName);
 
         return productService.saveProduct(productModel,image);
     }
@@ -60,6 +62,8 @@ public class ProductController {
             @RequestParam(required = false) String price,
             @RequestParam(required = false) String location,
             @RequestParam(required = false) String sellerId,
+            @RequestParam(required = false) String sellerName,
+
             @RequestParam(required = false) String type,
             @RequestParam(required = false) MultipartFile image){
         ProductModel productModel = new ProductModel();
@@ -70,6 +74,8 @@ public class ProductController {
         productModel.setPrice(price);
         productModel.setLocation(location);
         productModel.setSellerId(sellerId);
+        productModel.setSellerName(sellerName);
+
         productModel.setType(type);
 
         return productService.updateProduct(productModel,image);

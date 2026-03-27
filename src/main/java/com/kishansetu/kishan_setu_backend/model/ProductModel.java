@@ -23,6 +23,7 @@ public class ProductModel {
     private String price;
     private String location;
     private String sellerId;
+    private String sellerName;
     private String imageUrl;
     private String type;
     private LocalDateTime createdAt;
