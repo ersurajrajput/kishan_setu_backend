@@ -1,5 +1,6 @@
 package com.kishansetu.kishan_setu_backend.controller;
 
+import com.kishansetu.kishan_setu_backend.DTO.ChatReqDTO;
 import com.kishansetu.kishan_setu_backend.service.GeminiService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +14,8 @@ public class GeminiController {
         this.geminiService = geminiService;
     }
 
-    @GetMapping("/ask/{q}")
-    public String ask(@PathVariable String q) {
-        return geminiService.askGemini(q);
+    @PostMapping
+    public String ask(@RequestBody ChatReqDTO chatReqDTO) {
+        return geminiService.askGemini(chatReqDTO);
     }
 }

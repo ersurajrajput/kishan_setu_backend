@@ -1,10 +1,15 @@
 package com.kishansetu.kishan_setu_backend.service;
 
+import com.kishansetu.kishan_setu_backend.DTO.ChatReqDTO;
+import com.kishansetu.kishan_setu_backend.model.ChatModel;
+import com.kishansetu.kishan_setu_backend.repository.ChatRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -17,17 +22,23 @@ public class GeminiService {
     @Value("${gemini.api.url}")
     private String apiUrl;
 
+    @Autowired
+    ChatRepo chatRepo;
+
     private final RestTemplate restTemplate;
 
     public GeminiService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public String askGemini(String prompt) {
+    public String askGemini(ChatReqDTO chatReqDTO) {
+        if (chatReqDTO.getId() == null || chatReqDTO.getId().isBlank() || chatReqDTO.getChat() == null || chatReqDTO.getChat().isBlank()){
+            return "ID and Prompt required";
+        }
 
         String url = apiUrl + "?key=" + apiKey;
 
-        Map<String, Object> textPart = Map.of("text", prompt);
+        Map<String, Object> textPart = Map.of("text", chatReqDTO.getChat());
 
         Map<String, Object> content = Map.of(
                 "parts", List.of(textPart)
@@ -54,8 +65,14 @@ public class GeminiService {
             Map contentMap = (Map) first.get("content");
             List parts = (List) contentMap.get("parts");
             Map text = (Map) parts.get(0);
-
-            return text.get("text").toString();
+            String chatRes = text.get("text").toString();
+            ChatModel chatModel = new ChatModel();
+            chatModel.setChat(chatRes);
+            chatModel.setUserId(chatReqDTO.getId());
+            chatModel.setCreatedAt(LocalDateTime.now());
+            chatModel.setChatQ(chatReqDTO.getChat());
+            chatRepo.save(chatModel);
+            return chatRes;
 
         } catch (Exception e) {
             return "Error parsing Gemini response";
