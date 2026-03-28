@@ -33,7 +33,7 @@ public class GeminiService {
     }
 
     public String askGemini(ChatReqDTO chatReqDTO) {
-        if (chatReqDTO.getUserId() == null || chatReqDTO.getId().isBlank() || chatReqDTO.getChat() == null || chatReqDTO.getChat().isBlank()){
+        if (chatReqDTO.getUserId() == null || chatReqDTO.getUserId().isBlank() || chatReqDTO.getChat() == null || chatReqDTO.getChat().isBlank()){
             return "ID and Prompt required";
         }
 
@@ -69,7 +69,7 @@ public class GeminiService {
             String chatRes = text.get("text").toString();
             ChatModel chatModel = new ChatModel();
             chatModel.setChat(chatRes);
-            chatModel.setUserId(chatReqDTO.getId());
+            chatModel.setUserId(chatReqDTO.getUserId());
             chatModel.setCreatedAt(LocalDateTime.now());
             chatModel.setChatQ(chatReqDTO.getChat());
             chatRepo.save(chatModel);
