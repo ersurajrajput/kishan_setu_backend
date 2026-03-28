@@ -10,7 +10,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-
+@CrossOrigin(
+        origins = {
+                "http://localhost:5173",
+                "https://kishan-setu-delta.vercel.app"
+        },
+        methods = {
+                RequestMethod.GET,
+                RequestMethod.POST,
+                RequestMethod.PUT,
+                RequestMethod.DELETE,
+                RequestMethod.OPTIONS
+        }
+)
 @RestController
 @RequestMapping("/api/user")
 public class UserController {

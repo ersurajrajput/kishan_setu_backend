@@ -6,7 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin(
+        origins = {
+                "http://localhost:5173",
+                "https://kishan-setu-delta.vercel.app"
+        },
+        methods = {
+                RequestMethod.GET,
+                RequestMethod.POST,
+                RequestMethod.PUT,
+                RequestMethod.DELETE,
+                RequestMethod.OPTIONS
+        }
+)
 @RestController
 @RequestMapping("/api/chat")
 public class ChatController {

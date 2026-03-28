@@ -52,6 +52,9 @@ public class ProductService {
                         .body("Image upload failed");
             }
         }
+        if ( productModel.getSellerId() == null||productModel.getSellerId().isBlank()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Seller Id Required");
+        }
         productModel.setUpdatedAt(LocalDateTime.now());
         productModel.setCreatedAt(LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.CREATED).body(productRepo.save(productModel));
