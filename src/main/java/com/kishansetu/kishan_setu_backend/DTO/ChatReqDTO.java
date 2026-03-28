@@ -17,5 +17,5 @@ public class ChatReqDTO {
     @Id
     private String id;
     private String chat;
-
+    private String userId;
 }
